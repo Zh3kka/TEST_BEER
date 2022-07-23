@@ -12,3 +12,5 @@
 Готовый результат разместить на github pages.
 
 Результаты выполненного задания вместе с резюме просьба присылать  - oleg.smyk@vicuesoft.com
+
+API - (https://api.punkapi.com/v2/beers)
