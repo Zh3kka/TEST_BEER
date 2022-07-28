@@ -1,4 +1,29 @@
 .container {
+    padding: 15px;
     max-width: 1200px;
     margin: 0 auto;
+
+    header {
+        // text-align: center;
+        form {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            flex-direction: column;
+            h1 {
+                color: orangered;
+            }
+            input {
+                padding: 10px;
+                border-radius: 10px;
+            }
+        }
+    }
+    .beersCont {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin-top: 30px;
+    }
 }
