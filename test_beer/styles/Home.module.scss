@@ -1,10 +1,11 @@
+@import "./variables";
+
 .container {
     padding: 15px;
     max-width: 1200px;
     margin: 0 auto;
 
     header {
-        // text-align: center;
         form {
             display: flex;
             align-items: center;
@@ -12,7 +13,7 @@
             gap: 20px;
             flex-direction: column;
             h1 {
-                color: orangered;
+                color: $black_blue;
             }
             input {
                 padding: 10px;
@@ -20,10 +21,44 @@
             }
         }
     }
-    .beersCont {
+    .beersContainer {
+        margin-top: 20px;
         display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        margin-top: 30px;
+        flex-flow: row wrap;
+        justify-content: space-between;
+        // display: flex;
+        // flex-wrap: wrap;
+        // justify-content: center;
+        // margin-top: 30px;
+        .beerCard {
+            flex-basis: 250px;
+            text-align: center;
+
+            max-height: 550px;
+            max-width: 350px;
+            margin: 10px auto;
+            padding: 15px;
+
+            transition: transform .3s ease;
+            background-color: $gray;
+            border-radius: 15px;
+            cursor: pointer;
+
+            div {
+                color: $white;
+                text-align: left;
+                p {
+                    margin-top: 20px;
+                    overflow: hidden;
+                    display: -webkit-box;
+                    -webkit-line-clamp: 8;
+                    -webkit-box-orient: vertical;
+                    line-height: 1.3em;
+                }
+            }
+            &:hover {
+                transform: scale(1.03)
+            }
+        }
     }
 }

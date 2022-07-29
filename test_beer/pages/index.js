@@ -1,12 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
+import { useRouter } from "next/router";
 import styles from "../styles/Home.module.scss";
-import axios from "axios";
-import Beer from "../components/Beer/Beer";
 
-const Home = ({ beers }) => {
+/* 
+TODO: 
+  [] дописать стили для кнопки
+TODO: 
+  [] Доделать пагинацию
+
+*/
+
+function Home({ beers, page }) {
   const [search, setSearch] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [currentPage, setCurrentPage] = useState(1);
+  const router = useRouter();
 
   const filteredBeers = beers.filter((beer) =>
     beer.name.toLowerCase().includes(search.toLowerCase())
@@ -25,30 +31,38 @@ const Home = ({ beers }) => {
           />
         </form>
       </header>
-      <div className={styles.beersCont}>
+      <div className={styles.beersContainer}>
         {filteredBeers.map((beer) => {
           return (
-            <Beer
-              key={beer.id}
-              name={beer.name}
-              description={beer.description}
-            />
+            <div key={beer.id} className={styles.beerCard}>
+              <img src={beer.image_url} width={65} height={210} />
+              <div>
+                <h3>
+                  {beer.id}. {beer.name}
+                </h3>
+                <p className={styles.beerText}>{beer.description}</p>
+              </div>
+            </div>
           );
         })}
       </div>
+      <button onClick={() => router.push(`/beers?page=${page + 1}`)}>
+        Next page
+      </button>
     </div>
   );
-};
+}
 
-export default Home;
-
-export const getStaticProps = async () => {
+export async function getServerSideProps({ query: { page = 1 } }) {
   const res = await fetch("https://api.punkapi.com/v2/beers");
   const data = await res.json();
 
   return {
     props: {
       beers: data,
+      page: +page,
     },
   };
-};
+}
+
+export default Home;
