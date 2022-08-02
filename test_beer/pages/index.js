@@ -1,18 +1,9 @@
 import React, { useState } from "react";
-import { useRouter } from "next/router";
 import styles from "../styles/Home.module.scss";
-
-/* 
-TODO: 
-  [] дописать стили для кнопки
-TODO: 
-  [] Доделать пагинацию
-
-*/
+import Paginate from "./components/Paginate/Paginate";
 
 function Home({ beers, page }) {
   const [search, setSearch] = useState("");
-  const router = useRouter();
 
   const filteredBeers = beers.filter((beer) =>
     beer.name.toLowerCase().includes(search.toLowerCase())
@@ -46,15 +37,13 @@ function Home({ beers, page }) {
           );
         })}
       </div>
-      <button onClick={() => router.push(`/beers?page=${page + 1}`)}>
-        Next page
-      </button>
+      <Paginate page={page}/>
     </div>
   );
 }
 
 export async function getServerSideProps({ query: { page = 1 } }) {
-  const res = await fetch("https://api.punkapi.com/v2/beers");
+  const res = await fetch(`https://api.punkapi.com/v2/beers?page=${page}&per_page=16`);
   const data = await res.json();
 
   return {
